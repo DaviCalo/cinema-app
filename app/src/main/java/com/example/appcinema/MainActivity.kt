@@ -15,6 +15,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ExitToApp
+import androidx.compose.material.icons.automirrored.filled.Login
+import androidx.compose.material.icons.automirrored.filled.Logout
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
@@ -96,8 +99,9 @@ fun App() {
                 navigationIcon = {
                     IconButton(onClick = { /* do something */ }) {
                         Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Localized description"
+                            imageVector = ImageVector.vectorResource(id = R.drawable.sensor_door),
+                            contentDescription = "Localized description",
+                            modifier = Modifier.width(28.dp)
                         )
                     }
                 },
@@ -166,16 +170,11 @@ fun App() {
         },
     ) { innerPadding ->
         Box(Modifier.padding(paddingValues = innerPadding)) {
-            ScrollContent(innerPadding)
+            HomeScreen()
         }
     }
 
 }
-
-/*fun getMenu() {
-    val menu: List<String> = listOf("Menu", "Filmes", "Séries")
-     ScrollContent(menu)
-}*/
 
 @Composable
 fun ScrollContent(innerPadding: PaddingValues) {
