@@ -107,7 +107,7 @@ fun App() {
                 },
                 actions = {
                     var expanded by remember { mutableStateOf(false) }
-                    IconButton(onClick = {expanded = true}, Modifier.padding(10.dp)) {
+                    IconButton(onClick = {expanded = true}, Modifier.padding(8.dp)) {
                         Icon(
                             imageVector = Icons.Filled.Menu,
                             contentDescription = "Localized description"
