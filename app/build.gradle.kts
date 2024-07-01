@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.10"
 }
 
 android {
@@ -50,7 +51,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -59,11 +59,30 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.navigation.common.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
+
+    // Retrofit
+    implementation(libs.retrofit2.retrofit)
+    implementation(libs.converter.scalars)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.converter.gson)
+
+    // serialization
+    implementation(libs.jakewharton.retrofit2.kotlinx.serialization.converter)
+    implementation(libs.jetbrains.kotlinx.serialization.json)
+
+    // Image
+    implementation(libs.coil.kt.coil.compose)
+
+    //Dependencia do Player de video
+    implementation(libs.chromecast.sender)
+
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
