@@ -16,6 +16,8 @@ import com.example.appcinema.ui.theme.APPCinemaTheme
 import com.example.appcinema.ui.screens.allSeriesScreen.AllSeriesScreen
 import com.example.appcinema.ui.screens.detailsMoviesScreen.DetailsMoviesScreen
 import com.example.appcinema.ui.screens.detailsSeriesScreen.DetailsSeriesScreen
+import com.example.appcinema.ui.screens.favoriteScreen.AllFavoriteMoviesCards
+import com.example.appcinema.ui.screens.favoriteScreen.FavoriteScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,12 +34,15 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun App() {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "SeriesScreen") {
+    NavHost(navController = navController, startDestination = "Favorite") {
         composable("SeriesScreen") {
             AllSeriesScreen(navController)
         }
         composable("MoviesScreen") {
            AllMoviesScreen(navController)
+        }
+        composable("Favorite") {
+            FavoriteScreen(navController)
         }
         composable(
             route = "DetailsSeriesScreen/{detailsCard}",

@@ -1,10 +1,14 @@
 package com.example.appcinema.network
 
 import com.example.appcinema.model.DetailsModel
+import com.example.appcinema.model.FavoriteRequest
+import com.example.appcinema.model.FavoriteResponse
 import com.example.appcinema.model.ResponseAllCards
 import com.example.appcinema.model.TrailerModal
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Headers
+import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -35,4 +39,16 @@ interface RoutesApiService{
     @Headers(envVar, "accept: application/json")
     @GET("movie/{movie_id}?language=pt-br")
     suspend fun getMoviesDetails(@Path("movie_id") taskId: Int): DetailsModel
+
+    @Headers(envVar, "accept: application/json", "content-type: application/json")
+    @POST("account/21346525/favorite?language=pt-br&session_id=25f4b46f80d583daf55289cd70365b69846611ff")
+    suspend fun setMovieFavorite(@Body request: FavoriteRequest): FavoriteResponse
+
+    @Headers(envVar, "accept: application/json", "content-type: application/json")
+    @POST("account/21346525/favorite?language=pt-br&session_id=25f4b46f80d583daf55289cd70365b69846611ff")
+    suspend fun setSerieFavorite(@Body request: FavoriteRequest): FavoriteResponse
+
+    @Headers(envVar, "accept: application/json")
+    @GET("account/21346525/favorite/movies?language=pt-br&page=1&session_id=25f4b46f80d583daf55289cd70365b69846611ff&sort_by=created_at.asc")
+    suspend fun getFavoriteMovies(@Query("page") pageSize: Int): ResponseAllCards
 }

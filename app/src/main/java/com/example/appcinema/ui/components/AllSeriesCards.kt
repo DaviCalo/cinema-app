@@ -38,7 +38,7 @@ fun AllSeriesCards(listAll: Array<CardModel>, navHostController: NavHostControll
             Card(
                 Modifier
                     .padding(7.dp)
-                    .border(2.dp, Color.Red, RoundedCornerShape(4.dp))
+                    .border(2.dp, Color.Black, RoundedCornerShape(4.dp))
                     .clip(RoundedCornerShape(4.dp))
                     .clickable { navHostController.navigate("DetailsSeriesScreen/${listAll[item].id}") }
                     .fillMaxWidth()

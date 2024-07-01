@@ -8,7 +8,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.appcinema.model.DetailsModel
-import com.example.appcinema.model.TrailerModal
+import com.example.appcinema.model.FavoriteRequest
 import com.example.appcinema.network.CinemaApi
 import kotlinx.coroutines.launch
 
@@ -21,8 +21,8 @@ class DetailsMoviesViewModel: ViewModel() {
     var idCard by mutableIntStateOf(0)
         private set
 
-    fun getDetailsFun(idCards: Int) {
-        this.idCard = idCards
+    fun getDetailsFun(id: Int) {
+        this.idCard = id
         getTrailer(idCard)
         getDetails(idCard)
     }
@@ -38,13 +38,26 @@ class DetailsMoviesViewModel: ViewModel() {
         }
     }
 
-    fun getTrailer(taskId: Int) {
+    private fun getTrailer(taskId: Int) {
         viewModelScope.launch {
             try{
-                val listResult = CinemaApi.retrofitService.getTrailerSeries(taskId)
-               cardTrailer = listResult.results[1].key
+                val listResult = CinemaApi.retrofitService.getTrailerMovies(taskId)
+                cardTrailer = listResult.results[1].key
             }catch (e: Exception){
                 testAllDetails = e.message.toString()
+            }
+        }
+    }
+
+    fun setFavorite(id: Int, type: String){
+        viewModelScope.launch {
+            try{
+                val response = FavoriteRequest(id, type, true)
+                val listResult = CinemaApi.retrofitService.setMovieFavorite(response)
+                println(listResult)
+                println(response)
+            }catch (e: Exception){
+                println(e.message)
             }
         }
     }
