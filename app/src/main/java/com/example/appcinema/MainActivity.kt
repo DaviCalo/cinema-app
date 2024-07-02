@@ -1,4 +1,3 @@
-/*
 package com.example.appcinema
 
 import android.os.Bundle
@@ -56,4 +55,3 @@ fun App() {
         }
     }
 }
-*/

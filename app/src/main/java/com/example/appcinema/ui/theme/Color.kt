@@ -15,3 +15,6 @@ val Red80 = Color(0xFFD10505)
 val Black = Color(0xFF000000)
 val White = Color(0xFFFFFFFF)
 val Grey = Color(0xFFA0A0A0)
+
+//Minhas cores
+val BackgroundColor = Color(0xFF0F0D13)
