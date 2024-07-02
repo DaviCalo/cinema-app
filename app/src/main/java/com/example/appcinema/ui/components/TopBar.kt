@@ -33,6 +33,8 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.appcinema.R
+import com.example.appcinema.ui.screens.navigations.favoriteScreenNavigation
+import com.example.appcinema.ui.screens.navigations.favoriteScreenRoute
 import com.example.appcinema.ui.screens.navigations.homeGraphRoute
 import com.example.appcinema.ui.screens.navigations.seriesScreenRoute
 import com.example.appcinema.ui.theme.Black
@@ -137,7 +139,7 @@ fun TopBar(navController: NavHostController) {
                         Text("Ir para Favoritos", color = Color.White)
                     },
                     onClick = {
-                        // Handle click
+                        navController.navigate(favoriteScreenRoute)
                     },
                     leadingIcon = {
                         Icon(

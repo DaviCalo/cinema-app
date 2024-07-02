@@ -11,16 +11,28 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.Movie
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -34,6 +46,7 @@ import com.example.appcinema.ui.components.TopBar
 import com.example.appcinema.ui.screens.detailsMoviesScreen.ButtonFavorite
 import com.example.appcinema.ui.screens.detailsMoviesScreen.DetailsMovies
 import com.example.appcinema.ui.screens.detailsMoviesScreen.DetailsMoviesViewModel
+import com.example.appcinema.ui.theme.Purple40
 
 @Composable
 fun DetailsSeriesScreen(navController: NavHostController, idCard: Int) {
@@ -93,7 +106,9 @@ fun DetailsSeries(cardDetails: DetailsModel, viewModel: DetailsSeriesViewModel, 
     val overview = cardDetails.overview
     val rating = cardDetails.vote_average.toString()
     Column(
-        Modifier.fillMaxSize().padding(15.dp),
+        Modifier
+            .fillMaxSize()
+            .padding(15.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.Start){
         Text(
@@ -129,7 +144,30 @@ fun DetailsSeries(cardDetails: DetailsModel, viewModel: DetailsSeriesViewModel, 
 @Composable
 fun ButtonFavoriteSerie(viewModel: DetailsSeriesViewModel, idCard: Int){
 
-    Button(onClick = { viewModel.setFavorite(idCard, "tv") }) {
-        Text("Add to Favorite")
+    var isFavorite by remember { mutableStateOf(false) }
+
+    Row {
+        Button(
+            colors = ButtonDefaults.buttonColors(containerColor = if (isFavorite) Color.Red else Purple40),
+            onClick = {
+                viewModel.setFavorite(idCard, "movie")
+                isFavorite = !isFavorite
+            }
+        ) {
+            val icon = if (isFavorite) Icons.Filled.Favorite else Icons.Default.FavoriteBorder
+            Icon(imageVector = icon, contentDescription = null)
+            Spacer(modifier = Modifier.padding(4.dp))
+            Text("Favorito")
+        }
+        Spacer(modifier = Modifier.padding(8.dp))
+
+        Button(colors = ButtonDefaults.buttonColors(containerColor = Purple40),
+            onClick = {
+                viewModel.getTrailer(idCard)
+            }) {
+            Icon(imageVector = Icons.Filled.Movie, contentDescription = null)
+            Spacer(modifier = Modifier.padding(4.dp))
+            Text("Ver Trailer")
+        }
     }
 }

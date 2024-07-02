@@ -10,6 +10,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.appcinema.model.DetailsModel
 import com.example.appcinema.model.FavoriteRequest
 import com.example.appcinema.network.CinemaApi
+import com.example.appcinema.ui.components.TrailerYoutube
 import kotlinx.coroutines.launch
 
 class DetailsMoviesViewModel: ViewModel() {
@@ -38,7 +39,7 @@ class DetailsMoviesViewModel: ViewModel() {
         }
     }
 
-    private fun getTrailer(taskId: Int) {
+    fun getTrailer(taskId: Int) {
         viewModelScope.launch {
             try{
                 val listResult = CinemaApi.retrofitService.getTrailerMovies(taskId)

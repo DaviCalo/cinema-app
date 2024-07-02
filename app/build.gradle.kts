@@ -82,6 +82,8 @@ dependencies {
 
     //Dependencia do Player de video
     implementation(libs.chromecast.sender)
+    implementation (libs.core)
+
 
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)

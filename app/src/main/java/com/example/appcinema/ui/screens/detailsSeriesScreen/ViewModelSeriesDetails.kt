@@ -38,7 +38,7 @@ class DetailsSeriesViewModel: ViewModel() {
         }
     }
 
-    private fun getTrailer(taskId: Int) {
+    fun getTrailer(taskId: Int) {
         viewModelScope.launch {
             try{
                 val listResult = CinemaApi.retrofitService.getTrailerSeries(taskId)

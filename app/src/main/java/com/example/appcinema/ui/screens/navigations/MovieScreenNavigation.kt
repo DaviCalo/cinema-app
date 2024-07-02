@@ -5,6 +5,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.example.appcinema.ui.screens.allMoviesScreen.AllMoviesScreen
 import com.example.appcinema.ui.screens.allSeriesScreen.AllSeriesScreen
+import com.example.appcinema.ui.screens.favoriteScreen.FavoriteScreen
 
 internal const val movieScreenRoute = "MovieScreen"
 
@@ -18,3 +19,4 @@ fun NavGraphBuilder.movieScreenNavigation(navController: NavHostController) {
         navigate(movieScreenRoute, navOptions)
     }
 }
+
