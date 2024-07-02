@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
@@ -23,8 +22,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -40,7 +37,7 @@ fun DetailsSeriesScreen(navController: NavHostController, idCard: Int) {
     viewModel.getDetailsFun(idCard)
     val cardDetails = viewModel.cardDetails
     Scaffold(
-        topBar = { TopBar() },
+        topBar = { TopBar(navController) },
         modifier = Modifier
             .systemBarsPadding()
             .background(Color.DarkGray)

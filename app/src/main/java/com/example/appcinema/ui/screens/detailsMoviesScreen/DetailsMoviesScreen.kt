@@ -32,7 +32,7 @@ fun DetailsMoviesScreen(navController: NavHostController, idCard: Int) {
     viewModel.getDetailsFun(idCard)
     val cardDetails = viewModel.cardDetails
     Scaffold(
-        topBar = { TopBar() },
+        topBar = { TopBar(navController) },
         modifier = Modifier
             .systemBarsPadding()
             .background(Color.DarkGray)

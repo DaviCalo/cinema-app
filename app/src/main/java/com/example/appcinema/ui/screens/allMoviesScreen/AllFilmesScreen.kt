@@ -26,7 +26,7 @@ fun AllMoviesScreen(navController: NavHostController) {
     val viewModel = viewModel<MoviesViewModel>()
     val listAllMovies = viewModel.listAllMovies
     Scaffold(
-        topBar = { TopBar() },
+        topBar = { TopBar(navController) },
         modifier = Modifier.systemBarsPadding().background(Color.DarkGray)
     ) { innerPadding ->
         Column(

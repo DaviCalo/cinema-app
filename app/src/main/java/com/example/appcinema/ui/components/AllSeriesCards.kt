@@ -24,6 +24,7 @@ import coil.request.ImageRequest
 import com.example.appcinema.model.CardModel
 import com.example.appcinema.ui.theme.BackgroundColor
 import com.example.appcinema.ui.screens.allSeriesScreen.SeriesViewModel
+import detailsSeriesScreenRoute
 
 @Composable
 fun AllSeriesCards(listAll: Array<CardModel>, navHostController: NavHostController){
@@ -40,7 +41,7 @@ fun AllSeriesCards(listAll: Array<CardModel>, navHostController: NavHostControll
                     .padding(7.dp)
                     .border(2.dp, Color.Red, RoundedCornerShape(4.dp))
                     .clip(RoundedCornerShape(4.dp))
-                    .clickable { navHostController.navigate("DetailsSeriesScreen/${listAll[item].id}") }
+                    .clickable { navHostController.navigate("$detailsSeriesScreenRoute/${listAll[item].id}") }
                     .fillMaxWidth()
             ) {
                 AsyncImage(

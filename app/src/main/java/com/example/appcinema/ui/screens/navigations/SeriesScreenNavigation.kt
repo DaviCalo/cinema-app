@@ -7,7 +7,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.example.appcinema.ui.screens.allSeriesScreen.AllSeriesScreen
 
-private const val seriesScreenRoute = "SeriesScreen"
+internal const val seriesScreenRoute = "SeriesScreen"
 
 fun NavGraphBuilder.seriesScreenNavigation(navController: NavHostController) {
     composable(seriesScreenRoute) {

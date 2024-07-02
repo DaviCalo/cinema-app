@@ -32,7 +32,8 @@ fun AllMoviesCards(listAll: Array<CardModel>, navHostController: NavHostControll
         columns = GridCells.Adaptive(135.dp),
         modifier = Modifier.background(BackgroundColor),
         verticalArrangement = Arrangement.Center,
-        horizontalArrangement = Arrangement.Center
+        horizontalArrangement = Arrangement.Center,
+        userScrollEnabled = true
     ) {
         items(listAll.size) { item ->
             Card(
