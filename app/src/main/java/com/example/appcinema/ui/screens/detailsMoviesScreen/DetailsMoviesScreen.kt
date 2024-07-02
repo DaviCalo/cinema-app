@@ -189,7 +189,7 @@ fun ButtonFavorite(viewModel: DetailsMoviesViewModel, idCard: Int) {
     if (showModal) {
         VideoModal(
             onDismiss = { showModal = false },
-            videoId = viewModel.cardTrailer,// Coloque aqui a ID do vídeo do YouTube
+            videoId = viewModel.cardTrailer
 
         )
         Log.i("Favorito", "Link: ${viewModel.cardTrailer}")
