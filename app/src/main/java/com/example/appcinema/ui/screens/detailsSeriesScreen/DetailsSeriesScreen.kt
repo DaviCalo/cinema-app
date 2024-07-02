@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,6 +31,9 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.appcinema.model.DetailsModel
 import com.example.appcinema.ui.components.TopBar
+import com.example.appcinema.ui.screens.detailsMoviesScreen.ButtonFavorite
+import com.example.appcinema.ui.screens.detailsMoviesScreen.DetailsMovies
+import com.example.appcinema.ui.screens.detailsMoviesScreen.DetailsMoviesViewModel
 
 @Composable
 fun DetailsSeriesScreen(navController: NavHostController, idCard: Int) {
@@ -75,7 +79,7 @@ fun DetailsSeriesScreen(navController: NavHostController, idCard: Int) {
                             )
                         )
                     ){}
-                    Details(cardDetails)
+                    DetailsSeries(cardDetails, viewModel, idCard)
                 }
             }
         }
@@ -83,7 +87,7 @@ fun DetailsSeriesScreen(navController: NavHostController, idCard: Int) {
 }
 
 @Composable
-fun Details(cardDetails: DetailsModel){
+fun DetailsSeries(cardDetails: DetailsModel, viewModel: DetailsSeriesViewModel, idCard: Int){
     val nome = cardDetails.name
     val data = cardDetails.first_air_date
     val overview = cardDetails.overview
@@ -118,5 +122,14 @@ fun Details(cardDetails: DetailsModel){
             fontSize = 16.sp,
             color = Color.White,
         )
+        ButtonFavoriteSerie(viewModel,idCard)
+    }
+}
+
+@Composable
+fun ButtonFavoriteSerie(viewModel: DetailsSeriesViewModel, idCard: Int){
+
+    Button(onClick = { viewModel.setFavorite(idCard, "tv") }) {
+        Text("Add to Favorite")
     }
 }

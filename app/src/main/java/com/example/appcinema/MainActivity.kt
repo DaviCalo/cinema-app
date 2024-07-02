@@ -15,6 +15,9 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.appcinema.ui.theme.APPCinemaTheme
 import com.example.appcinema.ui.screens.detailsMoviesScreen.DetailsMoviesScreen
+import com.example.appcinema.ui.screens.detailsSeriesScreen.DetailsSeriesScreen
+import com.example.appcinema.ui.screens.favoriteScreen.AllFavoriteMoviesCards
+import com.example.appcinema.ui.screens.favoriteScreen.FavoriteScreen
 import com.example.appcinema.ui.screens.navigations.homeGraphRoute
 import com.example.appcinema.ui.screens.navigations.seriesScreenNavigation
 import com.example.appcinema.ui.screens.navigations.seriesScreenRoute
