@@ -59,6 +59,7 @@ import com.example.appcinema.ui.components.TopBar
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+import kotlinx.serialization.builtins.serializer
 
 @Composable
 fun DetailsMoviesScreen(navController: NavHostController, idCard: Int) {
@@ -188,9 +189,10 @@ fun ButtonFavorite(viewModel: DetailsMoviesViewModel, idCard: Int) {
     if (showModal) {
         VideoModal(
             onDismiss = { showModal = false },
-            videoId = "dQw4w9WgXcQ" // Coloque aqui a ID do vídeo do YouTube
+            videoId = viewModel.cardTrailer,// Coloque aqui a ID do vídeo do YouTube
+
         )
-        Log.i("TAG", "ButtonFavorite: : ${viewModel.getTrailer(idCard)}")
+        Log.i("Favorito", "Link: ${viewModel.cardTrailer}")
     }
 }
 
