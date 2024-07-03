@@ -63,6 +63,10 @@ class FavoriteViewModel: ViewModel(){
         }
     }
 
-
+    fun nextPage(){
+        page++
+        getMoviesPopular(page)
+        getSeriesPopular(page)
+    }
 
 }
