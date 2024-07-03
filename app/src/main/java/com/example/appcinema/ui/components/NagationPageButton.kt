@@ -12,6 +12,7 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,13 +28,8 @@ fun NavigationPageButton( nextButton: () -> Unit,){
         horizontalArrangement = Arrangement.Center
     ) {
         Button(onClick = { nextButton() }, modifier = Modifier.padding(5.dp).fillMaxWidth(), colors = ButtonDefaults.buttonColors(Color.DarkGray)) {
-            Icon(imageVector = Icons.Default.ArrowDownward, contentDescription = "Home icon")
+//            Icon(imageVector = Icons.Default.ArrowDownward, contentDescription = "Home icon")
+            Text(text = "Ver mais")
         }
     }
-}
-
-@Preview
-@Composable
-fun Preview(){
-    NavigationPageButton({})
 }
