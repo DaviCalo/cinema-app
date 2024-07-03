@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -32,6 +33,7 @@ import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.appcinema.model.CardModel
+import com.example.appcinema.ui.components.NavigationPageButton
 import com.example.appcinema.ui.components.TopBar
 import com.example.appcinema.ui.theme.BackgroundColor
 
@@ -55,7 +57,7 @@ fun FavoriteScreen(navController: NavHostController) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Favoritos",
+                text = "Seus Favoritos",
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
@@ -120,14 +122,8 @@ fun AllFavoriteMoviesCards(
                 )
             }
         }
-        item {
-//            NavigationPageButton { viewModel.nextPage() }
+        item(span = { GridItemSpan(maxLineSpan) }) {
+            NavigationPageButton { viewModel.nextPage() }
         }
     }
-}
-
-@Preview
-@Composable
-private fun FavoriteScreen() {
-
 }
