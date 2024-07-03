@@ -15,7 +15,9 @@ class DetailsSeriesViewModel: ViewModel() {
     var cardDetails by mutableStateOf<DetailsModel?>(null)
         private set
 
-    var cardTrailer by mutableStateOf(null)
+    var cardTrailer:String by mutableStateOf("")
+
+    var isFavorite by mutableStateOf(false)
         private set
 
     var idCard by mutableIntStateOf(0)
@@ -23,6 +25,7 @@ class DetailsSeriesViewModel: ViewModel() {
 
     fun getDetailsFun(id: Int) {
         idCard = id
+        findFavorite(idCard)
         getTrailer(idCard)
         getDetails(idCard)
     }
@@ -42,20 +45,35 @@ class DetailsSeriesViewModel: ViewModel() {
         viewModelScope.launch {
             try{
                 val listResult = CinemaApi.retrofitService.getTrailerSeries(taskId)
-//                cardTrailer = listResult.results[0].key.toString()
+                cardTrailer = listResult.results[1].key
             }catch (e: Exception){
                 testAllDetails = e.message.toString()
             }
         }
     }
 
-    fun setFavorite(id: Int, type: String){
+    fun setFavorite(id: Int, type: String, isFavorite: Boolean){
         viewModelScope.launch {
             try{
-                val response = FavoriteRequest(id, type, true)
+                val response = FavoriteRequest(id, type, isFavorite)
                 val listResult = CinemaApi.retrofitService.setSerieFavorite(response)
                 println(listResult)
                 println(response)
+            }catch (e: Exception){
+                println(e.message)
+            }
+        }
+    }
+
+    fun findFavorite(id: Int){
+        viewModelScope.launch {
+            try{
+                val listResult = CinemaApi.retrofitService.getFavoriteSeries(1)
+                for (i in 0..<listResult.results.size){
+                    if (listResult.results[i].id == id){
+                        isFavorite = true
+                    }
+                }
             }catch (e: Exception){
                 println(e.message)
             }

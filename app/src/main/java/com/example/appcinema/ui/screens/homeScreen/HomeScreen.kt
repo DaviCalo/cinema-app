@@ -41,7 +41,7 @@ import detailsMovieScreenRoute
 import detailsSeriesScreenRoute
 
 @Composable
-fun HomeScreen(navController: NavHostController){
+fun HomeScreen(navController: NavHostController) {
     val viewModel = viewModel<HomeViewModel>()
     val listAllMovies = viewModel.listAllMovies
     val listAllSeries = viewModel.listAllSeries
@@ -69,14 +69,28 @@ fun HomeScreen(navController: NavHostController){
                 modifier = Modifier.padding(10.dp)
             )
             if (!listAllMoviesFavorite.isNullOrEmpty() && !listAllSeriesFavorite.isNullOrEmpty() && !listAllSeries.isNullOrEmpty() && !listAllMovies.isNullOrEmpty()) {
-                AllMCardsHome(listAllMoviesFavorite,listAllSeriesFavorite,listAllSeries,listAllMovies,navController, viewModel)
+                AllMCardsHome(
+                    listAllMoviesFavorite,
+                    listAllSeriesFavorite,
+                    listAllSeries,
+                    listAllMovies,
+                    navController,
+                    viewModel
+                )
             }
         }
     }
 }
 
 @Composable
-fun AllMCardsHome(listAllMoviesFavorite: Array<CardModel>, listAllSeriesFavorite: Array<CardModel>, listAllSeries: Array<CardModel>, listAllMovies: Array<CardModel>, navHostController: NavHostController, viewModel: HomeViewModel){
+fun AllMCardsHome(
+    listAllMoviesFavorite: Array<CardModel>,
+    listAllSeriesFavorite: Array<CardModel>,
+    listAllSeries: Array<CardModel>,
+    listAllMovies: Array<CardModel>,
+    navHostController: NavHostController,
+    viewModel: HomeViewModel
+) {
     Text(text = "Seus favoritos", modifier = Modifier.fillMaxWidth(), color = Color.White)
     LazyHorizontalGrid(
         rows = GridCells.Fixed(1),
@@ -128,7 +142,7 @@ fun AllMCardsHome(listAllMoviesFavorite: Array<CardModel>, listAllSeriesFavorite
     LazyHorizontalGrid(
         rows = GridCells.Fixed(1),
         modifier = Modifier.height(200.dp)
-    )  {
+    ) {
         items(listAllSeries.size) { item ->
             Card(
                 Modifier

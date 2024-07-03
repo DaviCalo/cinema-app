@@ -1,5 +1,6 @@
 package com.example.appcinema.ui.components
 
+import android.app.Activity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -29,17 +30,27 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.appcinema.R
 import com.example.appcinema.ui.screens.navigations.favoriteScreenNavigation
 import com.example.appcinema.ui.screens.navigations.favoriteScreenRoute
 import com.example.appcinema.ui.screens.navigations.homeGraphRoute
+import com.example.appcinema.ui.screens.navigations.homeScreenRoute
+import com.example.appcinema.ui.screens.navigations.navigateToHomeGraph
 import com.example.appcinema.ui.screens.navigations.seriesScreenRoute
 import com.example.appcinema.ui.theme.Black
 import com.example.appcinema.ui.theme.White
 import movieScreenRoute
+
+@Composable
+fun getActivity(): Activity? {
+    val context = LocalContext.current
+    return if (context is Activity) context else null
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -64,7 +75,8 @@ fun TopBar(navController: NavHostController) {
             }
         },
         navigationIcon = {
-            IconButton(onClick = { /* do something */ }) {
+            val activity = getActivity()
+            IconButton(onClick = { activity?.finish() }) {
                 Icon(
                     imageVector = ImageVector.vectorResource(id = R.drawable.sensor_door),
                     contentDescription = "Localized description",
@@ -88,12 +100,12 @@ fun TopBar(navController: NavHostController) {
 
                 onDismissRequest = { expanded = false },
             ) {
-              /*  DropdownMenuItem(
+                DropdownMenuItem(
                     text = {
                         Text("Home", color = Color.White)
                     },
                     onClick = {
-                        navController.navigate(homeGraphRoute)
+                        navController.navigate(homeScreenRoute)
                     },
                     leadingIcon = {
                         Icon(
@@ -102,7 +114,7 @@ fun TopBar(navController: NavHostController) {
                             tint = Color.White
                         )
                     },
-                )*/
+                )
 
                 DropdownMenuItem(
                     text = {
@@ -153,4 +165,8 @@ fun TopBar(navController: NavHostController) {
         },
         scrollBehavior = scrollBehavior
     )
+}
+
+fun onFinished() {
+
 }

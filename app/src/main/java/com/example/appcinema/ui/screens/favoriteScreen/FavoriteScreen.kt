@@ -36,6 +36,7 @@ import com.example.appcinema.model.CardModel
 import com.example.appcinema.ui.components.NavigationPageButton
 import com.example.appcinema.ui.components.TopBar
 import com.example.appcinema.ui.theme.BackgroundColor
+import detailsMovieScreenRoute
 
 
 @Composable
@@ -90,7 +91,7 @@ fun AllFavoriteMoviesCards(
                     .padding(7.dp)
                     .border(2.dp, Color.Black, RoundedCornerShape(4.dp))
                     .clip(RoundedCornerShape(4.dp))
-                    .clickable { navHostController.navigate("DetailsMoviesScreen/${listAllMovies[item].id}") }
+                    .clickable { navHostController.navigate("$detailsMovieScreenRoute/${listAllMovies[item].id}") }
                     .fillMaxWidth()
             ) {
                 AsyncImage(

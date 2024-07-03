@@ -10,7 +10,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.appcinema.model.DetailsModel
 import com.example.appcinema.model.FavoriteRequest
 import com.example.appcinema.network.CinemaApi
-import com.example.appcinema.ui.components.TrailerYoutube
 import kotlinx.coroutines.launch
 
 class DetailsMoviesViewModel: ViewModel() {
@@ -19,7 +18,7 @@ class DetailsMoviesViewModel: ViewModel() {
 
     var cardTrailer:String by mutableStateOf("")
 
-    var favorite by mutableStateOf(false)
+    var isFavorite by mutableStateOf(false)
         private set
 
     var idCard by mutableIntStateOf(0)
@@ -54,10 +53,10 @@ class DetailsMoviesViewModel: ViewModel() {
         }
     }
 
-    fun setFavorite(id: Int, type: String){
+    fun setFavorite(id: Int, type: String, isFavorite: Boolean){
         viewModelScope.launch {
             try{
-                val response = FavoriteRequest(id, type, true)
+                val response = FavoriteRequest(id, type, isFavorite)
                 val listResult = CinemaApi.retrofitService.setMovieFavorite(response)
                 println(listResult)
                 println(response)
@@ -73,7 +72,7 @@ class DetailsMoviesViewModel: ViewModel() {
                 val listResult = CinemaApi.retrofitService.getFavoriteMovies(1)
                 for (i in 0..<listResult.results.size){
                     if (listResult.results[i].id == id){
-                        favorite = true
+                        isFavorite = true
                     }
                 }
             }catch (e: Exception){

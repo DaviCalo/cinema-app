@@ -2,18 +2,14 @@ package com.example.appcinema.ui.screens.detailsMoviesScreen
 
 
 import android.util.Log
-import android.webkit.WebView
-import android.webkit.WebViewClient
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
@@ -56,10 +52,10 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.appcinema.model.DetailsModel
 import com.example.appcinema.ui.components.TopBar
+import com.example.appcinema.ui.theme.Purple40
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-import kotlinx.serialization.builtins.serializer
 
 @Composable
 fun DetailsMoviesScreen(navController: NavHostController, idCard: Int) {
@@ -120,7 +116,7 @@ fun DetailsMovies(cardDetails: DetailsModel, viewModel: DetailsMoviesViewModel, 
     val data = cardDetails.release_date
     val overview = cardDetails.overview
     val rating = cardDetails.vote_average.toString()
-    var favorite = viewModel.favorite // use essa variavel para controlar o estado do botão
+    val favorite = viewModel.isFavorite
     Column(
         Modifier
             .fillMaxSize()
@@ -154,21 +150,23 @@ fun DetailsMovies(cardDetails: DetailsModel, viewModel: DetailsMoviesViewModel, 
             fontSize = 16.sp,
             color = Color.White,
         )
-        ButtonFavorite(viewModel, idCard)
+        ButtonFavorite(viewModel, idCard, favorite)
     }
 }
 
 @Composable
-fun ButtonFavorite(viewModel: DetailsMoviesViewModel, idCard: Int) {
-    var isFavorite by remember { mutableStateOf(false) }
+fun ButtonFavorite(viewModel: DetailsMoviesViewModel, idCard: Int, favorite: Boolean) {
+    var isFavorite by remember { mutableStateOf(favorite) }
     var showModal by remember { mutableStateOf(false) }
+
 
     Row {
         Button(
-            colors = ButtonDefaults.buttonColors(containerColor = if (isFavorite) Color.Green else Color.Red),
+            colors = ButtonDefaults.buttonColors(containerColor = if (isFavorite) Color.Red else Purple40),
             onClick = {
-                viewModel.setFavorite(idCard, "movie")
                 isFavorite = !isFavorite
+                viewModel.setFavorite(idCard, "movie", isFavorite)
+
             }
         ) {
             val icon = if (isFavorite) Icons.Filled.Favorite else Icons.Default.FavoriteBorder
@@ -178,9 +176,10 @@ fun ButtonFavorite(viewModel: DetailsMoviesViewModel, idCard: Int) {
         }
         Spacer(modifier = Modifier.padding(8.dp))
 
-        Button(onClick = {
-            showModal = true
-        }) {
+        Button(colors = ButtonDefaults.buttonColors(containerColor = Purple40),
+            onClick = {
+                showModal = true
+            }) {
             Icon(imageVector = Icons.Filled.Movie, contentDescription = null)
             Spacer(modifier = Modifier.padding(4.dp))
             Text("Ver Trailer")
@@ -193,7 +192,6 @@ fun ButtonFavorite(viewModel: DetailsMoviesViewModel, idCard: Int) {
             videoId = viewModel.cardTrailer
 
         )
-        Log.i("Favorito", "Link: ${viewModel.cardTrailer}")
     }
 }
 
@@ -244,35 +242,3 @@ fun YoutubePlayer(trailerId: String, lifecycleOwner: LifecycleOwner) {
         }
     )
 }
-
-
-/*
-@Composable
-fun ButtonFavorite(viewModel: DetailsMoviesViewModel, idCard: Int) {
-    var isFavorite by remember { mutableStateOf(false) }
-
-    Row {
-        Button(
-            colors = ButtonDefaults.buttonColors(containerColor = if (isFavorite) Color.Red else Purple40),
-            onClick = {
-                viewModel.setFavorite(idCard, "movie")
-                isFavorite = !isFavorite
-            }
-        ) {
-            val icon = if (isFavorite) Icons.Filled.Favorite else Icons.Default.FavoriteBorder
-            Icon(imageVector = icon, contentDescription = null)
-            Spacer(modifier = Modifier.padding(4.dp))
-            Text("Favorito")
-        }
-        Spacer(modifier = Modifier.padding(8.dp))
-
-        Button(colors = ButtonDefaults.buttonColors(containerColor = Purple40),
-            onClick = {
-            viewModel.getTrailer(idCard)
-        }) {
-            Icon(imageVector = Icons.Filled.Movie, contentDescription = null)
-            Spacer(modifier = Modifier.padding(4.dp))
-            Text("Ver Trailer")
-        }
-    }
-}*/
