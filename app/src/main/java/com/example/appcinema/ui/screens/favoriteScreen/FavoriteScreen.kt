@@ -5,6 +5,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
@@ -23,6 +24,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -33,18 +35,22 @@ import com.example.appcinema.model.CardModel
 import com.example.appcinema.ui.components.TopBar
 import com.example.appcinema.ui.theme.BackgroundColor
 
+
 @Composable
 fun FavoriteScreen(navController: NavHostController) {
     val viewModel = viewModel<FavoriteViewModel>()
     val listAllMovies = viewModel.listAllMovies
+    val listAllSeries = viewModel.listAllSeries
     Scaffold(
-        topBar = { TopBar() },
-        modifier = Modifier.systemBarsPadding().background(Color.DarkGray)
+        topBar = { TopBar(navController) },
+        modifier = Modifier
+            .systemBarsPadding()
+            .background(Color.DarkGray)
     ) { innerPadding ->
         Column(
             Modifier
                 .padding(innerPadding)
-                .fillMaxWidth()
+                .fillMaxSize()
                 .background(BackgroundColor),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -56,33 +62,38 @@ fun FavoriteScreen(navController: NavHostController) {
                 color = Color.White,
                 modifier = Modifier.padding(10.dp)
             )
-            if (!listAllMovies.isNullOrEmpty()) {
-                AllFavoriteMoviesCards(listAllMovies, navController, viewModel)
+            if (!listAllMovies.isNullOrEmpty() && !listAllSeries.isNullOrEmpty()) {
+                AllFavoriteMoviesCards(listAllMovies, listAllSeries,navController, viewModel)
             }
         }
     }
 }
 
 @Composable
-fun AllFavoriteMoviesCards(listAll: Array<CardModel>, navHostController: NavHostController, viewModel: FavoriteViewModel){
+fun AllFavoriteMoviesCards(
+    listAllMovies: Array<CardModel>,
+    listAllSeries: Array<CardModel>,
+    navHostController: NavHostController,
+    viewModel: FavoriteViewModel
+) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(135.dp),
         modifier = Modifier.background(BackgroundColor),
         verticalArrangement = Arrangement.Center,
         horizontalArrangement = Arrangement.Center
     ) {
-        items(listAll.size) { item ->
+        items(listAllMovies.size) { item ->
             Card(
                 Modifier
                     .padding(7.dp)
                     .border(2.dp, Color.Black, RoundedCornerShape(4.dp))
                     .clip(RoundedCornerShape(4.dp))
-                    .clickable { navHostController.navigate("DetailsMoviesScreen/${listAll[item].id}") }
+                    .clickable { navHostController.navigate("DetailsMoviesScreen/${listAllMovies[item].id}") }
                     .fillMaxWidth()
             ) {
                 AsyncImage(
                     model = ImageRequest.Builder(context = LocalContext.current)
-                        .data("https://image.tmdb.org/t/p/w500${listAll[item].poster_path}")
+                        .data("https://image.tmdb.org/t/p/w500${listAllMovies[item].poster_path}")
                         .crossfade(true)
                         .build(),
                     contentDescription = "CardFilms",
@@ -90,8 +101,33 @@ fun AllFavoriteMoviesCards(listAll: Array<CardModel>, navHostController: NavHost
                 )
             }
         }
-        item{
+        items(listAllSeries.size) { item ->
+            Card(
+                Modifier
+                    .padding(7.dp)
+                    .border(2.dp, Color.Black, RoundedCornerShape(4.dp))
+                    .clip(RoundedCornerShape(4.dp))
+                    .clickable { navHostController.navigate("DetailsSeriesScreen/${listAllSeries[item].id}") }
+                    .fillMaxWidth()
+            ) {
+                AsyncImage(
+                    model = ImageRequest.Builder(context = LocalContext.current)
+                        .data("https://image.tmdb.org/t/p/w500${listAllSeries[item].poster_path}")
+                        .crossfade(true)
+                        .build(),
+                    contentDescription = "CardSeries",
+                    contentScale = ContentScale.Fit
+                )
+            }
+        }
+        item {
 //            NavigationPageButton { viewModel.nextPage() }
         }
     }
+}
+
+@Preview
+@Composable
+private fun FavoriteScreen() {
+
 }

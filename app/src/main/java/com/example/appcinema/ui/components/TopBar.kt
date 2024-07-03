@@ -31,13 +31,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.example.appcinema.R
+import com.example.appcinema.ui.screens.navigations.favoriteScreenNavigation
+import com.example.appcinema.ui.screens.navigations.favoriteScreenRoute
+import com.example.appcinema.ui.screens.navigations.homeGraphRoute
+import com.example.appcinema.ui.screens.navigations.seriesScreenRoute
 import com.example.appcinema.ui.theme.Black
 import com.example.appcinema.ui.theme.White
+import movieScreenRoute
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBar(){
+fun TopBar(navController: NavHostController) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
 
     CenterAlignedTopAppBar(
@@ -82,12 +88,12 @@ fun TopBar(){
 
                 onDismissRequest = { expanded = false },
             ) {
-                DropdownMenuItem(
+              /*  DropdownMenuItem(
                     text = {
                         Text("Home", color = Color.White)
                     },
                     onClick = {
-                        // Handle click
+                        navController.navigate(homeGraphRoute)
                     },
                     leadingIcon = {
                         Icon(
@@ -96,14 +102,14 @@ fun TopBar(){
                             tint = Color.White
                         )
                     },
-                )
+                )*/
 
                 DropdownMenuItem(
                     text = {
                         Text("Filmes", color = Color.White)
                     },
                     onClick = {
-                        // Handle click
+                        navController.navigate(movieScreenRoute)
                     },
                     leadingIcon = {
                         Icon(
@@ -118,7 +124,7 @@ fun TopBar(){
                         Text("Séries", color = Color.White)
                     },
                     onClick = {
-                        // Handle click
+                        navController.navigate(seriesScreenRoute)
                     },
                     leadingIcon = {
                         Icon(
@@ -133,7 +139,7 @@ fun TopBar(){
                         Text("Ir para Favoritos", color = Color.White)
                     },
                     onClick = {
-                        // Handle click
+                        navController.navigate(favoriteScreenRoute)
                     },
                     leadingIcon = {
                         Icon(

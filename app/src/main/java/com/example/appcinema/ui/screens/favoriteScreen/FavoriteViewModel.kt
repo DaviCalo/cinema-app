@@ -15,11 +15,19 @@ class FavoriteViewModel: ViewModel(){
     var listAllMovies by mutableStateOf<Array<CardModel>?>(null)
         private set
 
+    var listAllSeries by mutableStateOf<Array<CardModel>?>(null)
+        private set
+
     private val tempMovies = mutableListOf<CardModel>()
+
+    private val tempSereis = mutableListOf<CardModel>()
 
     var page: Int by mutableIntStateOf(1)
 
-    init { getMoviesPopular(page) }
+    init {
+        getMoviesPopular(page)
+        getSeriesPopular(page)
+    }
 
     private fun getMoviesPopular(page: Int) {
         viewModelScope.launch {
@@ -33,6 +41,24 @@ class FavoriteViewModel: ViewModel(){
                 println(listAllMovies)
             }catch (e: Exception){
                println(e.message)
+            }
+        }
+    }
+
+    private fun getSeriesPopular(page: Int) {
+        viewModelScope.launch {
+            try{
+                val listResult = CinemaApi.retrofitService.getFavoriteSeries(page)
+                val limitArray = listResult.results.size-1
+                for (i in 0 .. limitArray){
+                    tempSereis.add(listResult.results[i])
+                }
+                listAllSeries = tempSereis.toTypedArray()
+                if (listAllSeries != null){
+                    println("asd")
+                }
+            }catch (e: Exception){
+                println(e.message)
             }
         }
     }

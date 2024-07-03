@@ -4,6 +4,7 @@ chromecastSender = "0.28"
 coil = "2.6.0"
 converterGson = "2.9.0"
 converterScalars = "2.9.0"
+core = "12.0.0"
 gson = "2.11.0"
 kotlin = "1.9.0"
 coreKtx = "1.10.1"
@@ -30,6 +31,7 @@ coil-compose = { module = "io.coil-kt:coil-compose" }
 coil-kt-coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
 converter-scalars = { module = "com.squareup.retrofit2:converter-scalars", version.ref = "converterScalars" }
+core = { module = "com.pierfrancescosoffritti.androidyoutubeplayer:core", version.ref = "core" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 jakewharton-retrofit2-kotlinx-serialization-converter = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "retrofit2KotlinxSerializationConverter" }
 jetbrains-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }

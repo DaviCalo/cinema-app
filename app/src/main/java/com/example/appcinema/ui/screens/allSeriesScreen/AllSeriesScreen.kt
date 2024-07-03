@@ -26,7 +26,7 @@ fun AllSeriesScreen(navController: NavHostController) {
     val viewModel = viewModel<SeriesViewModel>()
     val listAllSeries = viewModel.listAllSeries
     Scaffold(
-        topBar = { TopBar() },
+        topBar = { TopBar(navController) },
         modifier = Modifier.systemBarsPadding().background(Color.DarkGray)
     ) { innerPadding ->
         Column(
