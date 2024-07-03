@@ -3,7 +3,6 @@ package com.example.appcinema.ui.screens.homeScreen
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,7 +12,6 @@ import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.Scaffold
@@ -41,7 +39,7 @@ import detailsMovieScreenRoute
 import detailsSeriesScreenRoute
 
 @Composable
-fun HomeScreen(navController: NavHostController) {
+fun HomeScreen(navController: NavHostController){
     val viewModel = viewModel<HomeViewModel>()
     val listAllMovies = viewModel.listAllMovies
     val listAllSeries = viewModel.listAllSeries
@@ -68,68 +66,58 @@ fun HomeScreen(navController: NavHostController) {
                 color = Color.White,
                 modifier = Modifier.padding(10.dp)
             )
-            if (!listAllMoviesFavorite.isNullOrEmpty() && !listAllSeriesFavorite.isNullOrEmpty() && !listAllSeries.isNullOrEmpty() && !listAllMovies.isNullOrEmpty()) {
-                AllMCardsHome(
-                    listAllMoviesFavorite,
-                    listAllSeriesFavorite,
-                    listAllSeries,
-                    listAllMovies,
-                    navController,
-                    viewModel
-                )
+            if (!listAllMoviesFavorite.isNullOrEmpty() || !listAllSeriesFavorite.isNullOrEmpty() || !listAllSeries.isNullOrEmpty() || !listAllMovies.isNullOrEmpty()) {
+                AllMCardsHome(listAllMoviesFavorite,listAllSeriesFavorite,listAllSeries,listAllMovies,navController, viewModel)
             }
         }
     }
 }
 
 @Composable
-fun AllMCardsHome(
-    listAllMoviesFavorite: Array<CardModel>,
-    listAllSeriesFavorite: Array<CardModel>,
-    listAllSeries: Array<CardModel>,
-    listAllMovies: Array<CardModel>,
-    navHostController: NavHostController,
-    viewModel: HomeViewModel
-) {
+fun AllMCardsHome(listAllMoviesFavorite: Array<CardModel>? = null, listAllSeriesFavorite: Array<CardModel>? = null, listAllSeries: Array<CardModel>? = null, listAllMovies: Array<CardModel>? = null, navHostController: NavHostController, viewModel: HomeViewModel){
     Text(text = "Seus favoritos", modifier = Modifier.fillMaxWidth(), color = Color.White)
     LazyHorizontalGrid(
         rows = GridCells.Fixed(1),
         modifier = Modifier.height(200.dp)
     ) {
-        items(listAllMoviesFavorite.size) { item ->
-            Card(
-                Modifier
-                    .padding(7.dp)
-                    .border(2.dp, Color.Black, RoundedCornerShape(4.dp))
-                    .clip(RoundedCornerShape(4.dp))
-                    .clickable { navHostController.navigate("$detailsMovieScreenRoute/${listAllMoviesFavorite[item].id}") }
-            ) {
-                AsyncImage(
-                    model = ImageRequest.Builder(context = LocalContext.current)
-                        .data("https://image.tmdb.org/t/p/w500${listAllMoviesFavorite[item].poster_path}")
-                        .crossfade(true)
-                        .build(),
-                    contentDescription = "CardFilms",
-                    contentScale = ContentScale.Fit
-                )
+        listAllMoviesFavorite?.size?.let {
+            items(it) { item ->
+                Card(
+                    Modifier
+                        .padding(7.dp)
+                        .border(2.dp, Color.Black, RoundedCornerShape(4.dp))
+                        .clip(RoundedCornerShape(4.dp))
+                        .clickable { navHostController.navigate("$detailsMovieScreenRoute/${listAllMoviesFavorite.get(item).id}") }
+                ) {
+                    AsyncImage(
+                        model = ImageRequest.Builder(context = LocalContext.current)
+                            .data("https://image.tmdb.org/t/p/w500${listAllMoviesFavorite.get(item).poster_path}")
+                            .crossfade(true)
+                            .build(),
+                        contentDescription = "CardFilms",
+                        contentScale = ContentScale.Fit
+                    )
+                }
             }
         }
-        items(listAllSeriesFavorite.size) { item ->
-            Card(
-                Modifier
-                    .padding(7.dp)
-                    .border(2.dp, Color.Black, RoundedCornerShape(4.dp))
-                    .clip(RoundedCornerShape(4.dp))
-                    .clickable { navHostController.navigate("$detailsSeriesScreenRoute/${listAllSeriesFavorite[item].id}") }
-            ) {
-                AsyncImage(
-                    model = ImageRequest.Builder(context = LocalContext.current)
-                        .data("https://image.tmdb.org/t/p/w500${listAllSeriesFavorite[item].poster_path}")
-                        .crossfade(true)
-                        .build(),
-                    contentDescription = "CardFilms",
-                    contentScale = ContentScale.Fit
-                )
+        listAllSeriesFavorite?.let {
+            items(it.size) { item ->
+                Card(
+                    Modifier
+                        .padding(7.dp)
+                        .border(2.dp, Color.Black, RoundedCornerShape(4.dp))
+                        .clip(RoundedCornerShape(4.dp))
+                        .clickable { navHostController.navigate("$detailsSeriesScreenRoute/${listAllSeriesFavorite[item].id}") }
+                ) {
+                    AsyncImage(
+                        model = ImageRequest.Builder(context = LocalContext.current)
+                            .data("https://image.tmdb.org/t/p/w500${listAllSeriesFavorite[item].poster_path}")
+                            .crossfade(true)
+                            .build(),
+                        contentDescription = "CardFilms",
+                        contentScale = ContentScale.Fit
+                    )
+                }
             }
         }
         item(span = { GridItemSpan(maxLineSpan) }) {
@@ -142,24 +130,26 @@ fun AllMCardsHome(
     LazyHorizontalGrid(
         rows = GridCells.Fixed(1),
         modifier = Modifier.height(200.dp)
-    ) {
-        items(listAllSeries.size) { item ->
-            Card(
-                Modifier
-                    .padding(7.dp)
-                    .border(2.dp, Color.Black, RoundedCornerShape(4.dp))
-                    .clip(RoundedCornerShape(4.dp))
-                    .clickable { navHostController.navigate("$detailsSeriesScreenRoute/${listAllSeries[item].id}") }
-                    .fillMaxWidth()
-            ) {
-                AsyncImage(
-                    model = ImageRequest.Builder(context = LocalContext.current)
-                        .data("https://image.tmdb.org/t/p/w500${listAllSeries[item].poster_path}")
-                        .crossfade(true)
-                        .build(),
-                    contentDescription = "CardFilms",
-                    contentScale = ContentScale.Fit
-                )
+    )  {
+        listAllSeries?.let {
+            items(it.size) { item ->
+                Card(
+                    Modifier
+                        .padding(7.dp)
+                        .border(2.dp, Color.Black, RoundedCornerShape(4.dp))
+                        .clip(RoundedCornerShape(4.dp))
+                        .clickable { navHostController.navigate("$detailsSeriesScreenRoute/${listAllSeries[item].id}") }
+                        .fillMaxWidth()
+                ) {
+                    AsyncImage(
+                        model = ImageRequest.Builder(context = LocalContext.current)
+                            .data("https://image.tmdb.org/t/p/w500${listAllSeries[item].poster_path}")
+                            .crossfade(true)
+                            .build(),
+                        contentDescription = "CardFilms",
+                        contentScale = ContentScale.Fit
+                    )
+                }
             }
         }
         item(span = { GridItemSpan(maxLineSpan) }) {
@@ -171,22 +161,24 @@ fun AllMCardsHome(
         rows = GridCells.Fixed(1),
         modifier = Modifier.height(200.dp)
     ) {
-        items(listAllMovies.size) { item ->
-            Card(
-                Modifier
-                    .padding(7.dp)
-                    .border(2.dp, Color.Black, RoundedCornerShape(4.dp))
-                    .clip(RoundedCornerShape(4.dp))
-                    .clickable { navHostController.navigate("$detailsMovieScreenRoute/${listAllMovies[item].id}") }
-            ) {
-                AsyncImage(
-                    model = ImageRequest.Builder(context = LocalContext.current)
-                        .data("https://image.tmdb.org/t/p/w500${listAllMovies[item].poster_path}")
-                        .crossfade(true)
-                        .build(),
-                    contentDescription = "CardFilms",
-                    contentScale = ContentScale.Fit
-                )
+        listAllMovies?.let {
+            items(it.size) { item ->
+                Card(
+                    Modifier
+                        .padding(7.dp)
+                        .border(2.dp, Color.Black, RoundedCornerShape(4.dp))
+                        .clip(RoundedCornerShape(4.dp))
+                        .clickable { navHostController.navigate("$detailsMovieScreenRoute/${listAllMovies[item].id}") }
+                ) {
+                    AsyncImage(
+                        model = ImageRequest.Builder(context = LocalContext.current)
+                            .data("https://image.tmdb.org/t/p/w500${listAllMovies[item].poster_path}")
+                            .crossfade(true)
+                            .build(),
+                        contentDescription = "CardFilms",
+                        contentScale = ContentScale.Fit
+                    )
+                }
             }
         }
         item(span = { GridItemSpan(maxLineSpan) }) {
