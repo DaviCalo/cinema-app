@@ -89,6 +89,7 @@ fun DetailsMovies(cardDetails: DetailsModel, viewModel: DetailsMoviesViewModel, 
     val data = cardDetails.release_date
     val overview = cardDetails.overview
     val rating = cardDetails.vote_average.toString()
+    var favorite = viewModel.favorite // use essa variavel para controlar o estado do botão
     Column(
         Modifier
             .fillMaxSize()

@@ -18,11 +18,15 @@ class DetailsMoviesViewModel: ViewModel() {
 
     var cardTrailer:String by mutableStateOf("")
 
+    var favorite by mutableStateOf(false)
+        private set
+
     var idCard by mutableIntStateOf(0)
         private set
 
     fun getDetailsFun(id: Int) {
         this.idCard = id
+        findFavorite(idCard)
         getTrailer(idCard)
         getDetails(idCard)
     }
@@ -56,6 +60,21 @@ class DetailsMoviesViewModel: ViewModel() {
                 val listResult = CinemaApi.retrofitService.setMovieFavorite(response)
                 println(listResult)
                 println(response)
+            }catch (e: Exception){
+                println(e.message)
+            }
+        }
+    }
+
+    fun findFavorite(id: Int){
+        viewModelScope.launch {
+            try{
+                val listResult = CinemaApi.retrofitService.getFavoriteMovies(1)
+                for (i in 0..<listResult.results.size){
+                    if (listResult.results[i].id == id){
+                        favorite = true
+                    }
+                }
             }catch (e: Exception){
                 println(e.message)
             }
