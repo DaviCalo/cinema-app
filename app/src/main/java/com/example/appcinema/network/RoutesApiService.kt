@@ -51,4 +51,8 @@ interface RoutesApiService{
     @Headers(envVar, "accept: application/json")
     @GET("account/21346525/favorite/movies?language=pt-br&page=1&session_id=25f4b46f80d583daf55289cd70365b69846611ff&sort_by=created_at.asc")
     suspend fun getFavoriteMovies(@Query("page") pageSize: Int): ResponseAllCards
+
+    @Headers(envVar, "accept: application/json")
+    @GET("account/21346525/favorite/tv?language=pt-br&page=1&session_id=25f4b46f80d583daf55289cd70365b69846611ff&sort_by=created_at.asc")
+    suspend fun getFavoriteSeries(@Query("page") pageSize: Int): ResponseAllCards
 }
