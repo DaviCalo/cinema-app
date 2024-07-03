@@ -35,17 +35,6 @@ class SeriesViewModel: ViewModel() {
         }
     }
 
-    fun getTrailer(taskId: Int) {
-        viewModelScope.launch {
-            try{
-                val listResult = CinemaApi.retrofitService.getTrailerSeries(taskId)
-                testAllSeries = listResult.results[1].key
-            }catch (e: Exception){
-                testAllSeries = e.message.toString()
-            }
-        }
-    }
-
     fun nextPage(){
         page++
         getListAllSeriesPopular(page)
