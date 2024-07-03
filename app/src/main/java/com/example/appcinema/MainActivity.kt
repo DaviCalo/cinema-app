@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.example.appcinema.ui.screens.navigations.favoriteScreenNavigation
+import com.example.appcinema.ui.screens.navigations.favoriteScreenRoute
 import com.example.appcinema.ui.screens.navigations.seriesScreenNavigation
 import com.example.appcinema.ui.theme.APPCinemaTheme
 import detailsMovieScreenNavigation
@@ -30,7 +31,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun App() {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = movieScreenRoute) {
+    NavHost(navController = navController, startDestination = favoriteScreenRoute) {
 
         seriesScreenNavigation(navController)
 

@@ -40,6 +40,7 @@ import com.example.appcinema.ui.theme.BackgroundColor
 fun FavoriteScreen(navController: NavHostController) {
     val viewModel = viewModel<FavoriteViewModel>()
     val listAllMovies = viewModel.listAllMovies
+    val listAllSeries = viewModel.listAllSeries
     Scaffold(
         topBar = { TopBar(navController) },
         modifier = Modifier
@@ -61,8 +62,8 @@ fun FavoriteScreen(navController: NavHostController) {
                 color = Color.White,
                 modifier = Modifier.padding(10.dp)
             )
-            if (!listAllMovies.isNullOrEmpty()) {
-                AllFavoriteMoviesCards(listAllMovies, navController, viewModel)
+            if (!listAllMovies.isNullOrEmpty() && !listAllSeries.isNullOrEmpty()) {
+                AllFavoriteMoviesCards(listAllMovies, listAllSeries,navController, viewModel)
             }
         }
     }
@@ -70,7 +71,8 @@ fun FavoriteScreen(navController: NavHostController) {
 
 @Composable
 fun AllFavoriteMoviesCards(
-    listAll: Array<CardModel>,
+    listAllMovies: Array<CardModel>,
+    listAllSeries: Array<CardModel>,
     navHostController: NavHostController,
     viewModel: FavoriteViewModel
 ) {
@@ -80,21 +82,40 @@ fun AllFavoriteMoviesCards(
         verticalArrangement = Arrangement.Center,
         horizontalArrangement = Arrangement.Center
     ) {
-        items(listAll.size) { item ->
+        items(listAllMovies.size) { item ->
             Card(
                 Modifier
                     .padding(7.dp)
                     .border(2.dp, Color.Black, RoundedCornerShape(4.dp))
                     .clip(RoundedCornerShape(4.dp))
-                    .clickable { navHostController.navigate("DetailsMoviesScreen/${listAll[item].id}") }
+                    .clickable { navHostController.navigate("DetailsMoviesScreen/${listAllMovies[item].id}") }
                     .fillMaxWidth()
             ) {
                 AsyncImage(
                     model = ImageRequest.Builder(context = LocalContext.current)
-                        .data("https://image.tmdb.org/t/p/w500${listAll[item].poster_path}")
+                        .data("https://image.tmdb.org/t/p/w500${listAllMovies[item].poster_path}")
                         .crossfade(true)
                         .build(),
                     contentDescription = "CardFilms",
+                    contentScale = ContentScale.Fit
+                )
+            }
+        }
+        items(listAllSeries.size) { item ->
+            Card(
+                Modifier
+                    .padding(7.dp)
+                    .border(2.dp, Color.Black, RoundedCornerShape(4.dp))
+                    .clip(RoundedCornerShape(4.dp))
+                    .clickable { navHostController.navigate("DetailsSeriesScreen/${listAllSeries[item].id}") }
+                    .fillMaxWidth()
+            ) {
+                AsyncImage(
+                    model = ImageRequest.Builder(context = LocalContext.current)
+                        .data("https://image.tmdb.org/t/p/w500${listAllSeries[item].poster_path}")
+                        .crossfade(true)
+                        .build(),
+                    contentDescription = "CardSeries",
                     contentScale = ContentScale.Fit
                 )
             }
