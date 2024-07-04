@@ -116,7 +116,6 @@ fun DetailsMovies(cardDetails: DetailsModel, viewModel: DetailsMoviesViewModel, 
     val data = cardDetails.release_date
     val overview = cardDetails.overview
     val rating = cardDetails.vote_average.toString()
-    val favorite = viewModel.isFavorite
     Column(
         Modifier
             .fillMaxSize()
@@ -150,26 +149,23 @@ fun DetailsMovies(cardDetails: DetailsModel, viewModel: DetailsMoviesViewModel, 
             fontSize = 16.sp,
             color = Color.White,
         )
-        ButtonFavorite(viewModel, idCard, favorite)
+        ButtonFavorite(viewModel, idCard)
     }
 }
 
 @Composable
-fun ButtonFavorite(viewModel: DetailsMoviesViewModel, idCard: Int, favorite: Boolean) {
-    var isFavorite by remember { mutableStateOf(favorite) }
+fun ButtonFavorite(viewModel: DetailsMoviesViewModel, idCard: Int) {
     var showModal by remember { mutableStateOf(false) }
-
 
     Row {
         Button(
-            colors = ButtonDefaults.buttonColors(containerColor = if (isFavorite) Color.Red else Purple40),
+            colors = ButtonDefaults.buttonColors(containerColor = if (viewModel.isFavorite) Color.Red else Purple40),
             onClick = {
-                isFavorite = !isFavorite
-                viewModel.setFavorite(idCard, "movie", isFavorite)
-
+                viewModel.isFavorite = !viewModel.isFavorite
+                viewModel.setFavorite(idCard, "movie", viewModel.isFavorite)
             }
         ) {
-            val icon = if (isFavorite) Icons.Filled.Favorite else Icons.Default.FavoriteBorder
+            val icon = if (viewModel.isFavorite) Icons.Filled.Favorite else Icons.Default.FavoriteBorder
             Icon(imageVector = icon, contentDescription = null)
             Spacer(modifier = Modifier.padding(4.dp))
             Text("Favorito")
@@ -190,7 +186,6 @@ fun ButtonFavorite(viewModel: DetailsMoviesViewModel, idCard: Int, favorite: Boo
         VideoModal(
             onDismiss = { showModal = false },
             videoId = viewModel.cardTrailer
-
         )
     }
 }

@@ -19,10 +19,9 @@ class FavoriteViewModel: ViewModel(){
         private set
 
     private val tempMovies = mutableListOf<CardModel>()
+    private val tempSeries = mutableListOf<CardModel>()
 
-    private val tempSereis = mutableListOf<CardModel>()
-
-    var page: Int by mutableIntStateOf(1)
+    private var page: Int by mutableIntStateOf(1)
 
     init {
         getMoviesPopular(page)
@@ -38,7 +37,7 @@ class FavoriteViewModel: ViewModel(){
                     tempMovies.add(listResult.results[i])
                 }
                 listAllMovies = tempMovies.toTypedArray()
-                println(listAllMovies)
+                println("vaiii")
             }catch (e: Exception){
                println(e.message)
             }
@@ -51,12 +50,9 @@ class FavoriteViewModel: ViewModel(){
                 val listResult = CinemaApi.retrofitService.getFavoriteSeries(page)
                 val limitArray = listResult.results.size-1
                 for (i in 0 .. limitArray){
-                    tempSereis.add(listResult.results[i])
+                    tempSeries.add(listResult.results[i])
                 }
-                listAllSeries = tempSereis.toTypedArray()
-                if (listAllSeries != null){
-                    println("asd")
-                }
+                listAllSeries = tempSeries.toTypedArray()
             }catch (e: Exception){
                 println(e.message)
             }
@@ -68,5 +64,4 @@ class FavoriteViewModel: ViewModel(){
         getMoviesPopular(page)
         getSeriesPopular(page)
     }
-
 }

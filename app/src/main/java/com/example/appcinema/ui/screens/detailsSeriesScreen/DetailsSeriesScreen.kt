@@ -1,7 +1,6 @@
 
 package com.example.appcinema.ui.screens.detailsSeriesScreen
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -114,7 +113,6 @@ fun DetailsSeries(cardDetails: DetailsModel, viewModel: DetailsSeriesViewModel, 
     val data = cardDetails.first_air_date
     val overview = cardDetails.overview
     val rating = cardDetails.vote_average.toString()
-    val isFavorite = viewModel.isFavorite
     Column(
         Modifier
             .fillMaxSize()
@@ -147,25 +145,23 @@ fun DetailsSeries(cardDetails: DetailsModel, viewModel: DetailsSeriesViewModel, 
             fontSize = 16.sp,
             color = Color.White,
         )
-        ButtonFavoriteSerie(viewModel,idCard, isFavorite)
+        ButtonFavoriteSeries(viewModel,idCard)
     }
 }
 
 @Composable
-fun ButtonFavoriteSerie(viewModel: DetailsSeriesViewModel, idCard: Int, favorite: Boolean) {
-    var isFavorite by remember { mutableStateOf(favorite) }
+fun ButtonFavoriteSeries(viewModel: DetailsSeriesViewModel, idCard: Int) {
     var showModal by remember { mutableStateOf(false) }
 
     Row {
         Button(
-            colors = ButtonDefaults.buttonColors(containerColor = if (isFavorite) Color.Red else Purple40),
+            colors = ButtonDefaults.buttonColors(containerColor = if (viewModel.isFavorite) Color.Red else Purple40),
             onClick = {
-                isFavorite = !isFavorite
-                viewModel.setFavorite(idCard, "tv", isFavorite)
-
+                viewModel.isFavorite = !viewModel.isFavorite
+                viewModel.setFavorite(idCard, "tv", viewModel.isFavorite)
             }
         ) {
-            val icon = if (isFavorite) Icons.Filled.Favorite else Icons.Default.FavoriteBorder
+            val icon = if (viewModel.isFavorite) Icons.Filled.Favorite else Icons.Default.FavoriteBorder
             Icon(imageVector = icon, contentDescription = null)
             Spacer(modifier = Modifier.padding(4.dp))
             Text("Favorito")

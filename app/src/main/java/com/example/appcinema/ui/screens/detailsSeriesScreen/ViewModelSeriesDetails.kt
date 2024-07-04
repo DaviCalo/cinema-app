@@ -18,16 +18,14 @@ class DetailsSeriesViewModel: ViewModel() {
     var cardTrailer:String by mutableStateOf("")
 
     var isFavorite by mutableStateOf(false)
-        private set
 
-    var idCard by mutableIntStateOf(0)
-        private set
+    private var idCard: Int by mutableIntStateOf(0)
 
     fun getDetailsFun(id: Int) {
         idCard = id
-        findFavorite(idCard)
         getTrailer(idCard)
         getDetails(idCard)
+        findFavorite(idCard)
     }
 
     private fun getDetails(taskId: Int) {
@@ -36,18 +34,18 @@ class DetailsSeriesViewModel: ViewModel() {
                 val listResult = CinemaApi.retrofitService.getSeriesDetails(taskId)
                 cardDetails = listResult
             }catch (e: Exception){
-                testAllDetails = e.message.toString()
+                println(e.message)
             }
         }
     }
 
-    fun getTrailer(taskId: Int) {
+    private fun getTrailer(taskId: Int) {
         viewModelScope.launch {
             try{
                 val listResult = CinemaApi.retrofitService.getTrailerSeries(taskId)
                 cardTrailer = listResult.results[1].key
             }catch (e: Exception){
-                testAllDetails = e.message.toString()
+                println(e.message)
             }
         }
     }
@@ -56,16 +54,14 @@ class DetailsSeriesViewModel: ViewModel() {
         viewModelScope.launch {
             try{
                 val response = FavoriteRequest(id, type, isFavorite)
-                val listResult = CinemaApi.retrofitService.setSerieFavorite(response)
-                println(listResult)
-                println(response)
+                CinemaApi.retrofitService.setSerieFavorite(response)
             }catch (e: Exception){
                 println(e.message)
             }
         }
     }
 
-    fun findFavorite(id: Int){
+    private fun findFavorite(id: Int){
         viewModelScope.launch {
             try{
                 val listResult = CinemaApi.retrofitService.getFavoriteSeries(1)
@@ -79,7 +75,4 @@ class DetailsSeriesViewModel: ViewModel() {
             }
         }
     }
-
-   var testAllDetails: String by mutableStateOf("")
-       private set
 }

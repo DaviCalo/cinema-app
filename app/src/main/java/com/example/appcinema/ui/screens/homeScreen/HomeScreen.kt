@@ -75,16 +75,16 @@ fun HomeScreen(navController: NavHostController){
 
 @Composable
 fun AllMCardsHome(listAllMoviesFavorite: Array<CardModel>? = null, listAllSeriesFavorite: Array<CardModel>? = null, listAllSeries: Array<CardModel>? = null, listAllMovies: Array<CardModel>? = null, navHostController: NavHostController, viewModel: HomeViewModel){
-    Text(text = "Seus favoritos", modifier = Modifier.fillMaxWidth(), color = Color.White)
+    Text(text = "Seus favoritos", modifier = Modifier.fillMaxWidth().padding(5.dp,5.dp,5.dp,0.dp), color = Color.White)
     LazyHorizontalGrid(
         rows = GridCells.Fixed(1),
-        modifier = Modifier.height(200.dp)
+        modifier = Modifier.height(180.dp)
     ) {
         listAllMoviesFavorite?.size?.let {
             items(it) { item ->
                 Card(
                     Modifier
-                        .padding(7.dp)
+                        .padding(5.dp, 0.dp)
                         .border(2.dp, Color.Black, RoundedCornerShape(4.dp))
                         .clip(RoundedCornerShape(4.dp))
                         .clickable { navHostController.navigate("$detailsMovieScreenRoute/${listAllMoviesFavorite.get(item).id}") }
@@ -104,7 +104,7 @@ fun AllMCardsHome(listAllMoviesFavorite: Array<CardModel>? = null, listAllSeries
             items(it.size) { item ->
                 Card(
                     Modifier
-                        .padding(7.dp)
+                        .padding(5.dp, 0.dp)
                         .border(2.dp, Color.Black, RoundedCornerShape(4.dp))
                         .clip(RoundedCornerShape(4.dp))
                         .clickable { navHostController.navigate("$detailsSeriesScreenRoute/${listAllSeriesFavorite[item].id}") }
@@ -125,17 +125,17 @@ fun AllMCardsHome(listAllMoviesFavorite: Array<CardModel>? = null, listAllSeries
         }
     }
 
-    Text(text = "Series populares", modifier = Modifier.fillMaxWidth(), color = Color.White)
+    Text(text = "Series populares", modifier = Modifier.fillMaxWidth().padding(5.dp,5.dp,5.dp,0.dp), color = Color.White)
 
     LazyHorizontalGrid(
         rows = GridCells.Fixed(1),
-        modifier = Modifier.height(200.dp)
+        modifier = Modifier.height(180.dp)
     )  {
         listAllSeries?.let {
             items(it.size) { item ->
                 Card(
                     Modifier
-                        .padding(7.dp)
+                        .padding(5.dp, 0.dp)
                         .border(2.dp, Color.Black, RoundedCornerShape(4.dp))
                         .clip(RoundedCornerShape(4.dp))
                         .clickable { navHostController.navigate("$detailsSeriesScreenRoute/${listAllSeries[item].id}") }
@@ -156,16 +156,16 @@ fun AllMCardsHome(listAllMoviesFavorite: Array<CardModel>? = null, listAllSeries
             NavigationPageButton { viewModel.nextPageSeries() }
         }
     }
-    Text(text = "Filmes populares", modifier = Modifier.fillMaxWidth(), color = Color.White)
+    Text(text = "Filmes populares", modifier = Modifier.fillMaxWidth().padding(5.dp,5.dp,5.dp,0.dp), color = Color.White)
     LazyHorizontalGrid(
         rows = GridCells.Fixed(1),
-        modifier = Modifier.height(200.dp)
+        modifier = Modifier.height(180.dp)
     ) {
         listAllMovies?.let {
             items(it.size) { item ->
                 Card(
                     Modifier
-                        .padding(7.dp)
+                        .padding(5.dp, 0.dp)
                         .border(2.dp, Color.Black, RoundedCornerShape(4.dp))
                         .clip(RoundedCornerShape(4.dp))
                         .clickable { navHostController.navigate("$detailsMovieScreenRoute/${listAllMovies[item].id}") }

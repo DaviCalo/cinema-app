@@ -11,7 +11,6 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.example.appcinema.ui.screens.navigations.favoriteScreenNavigation
-import com.example.appcinema.ui.screens.navigations.favoriteScreenRoute
 import com.example.appcinema.ui.screens.navigations.homeScreenNavigation
 import com.example.appcinema.ui.screens.navigations.homeScreenRoute
 import com.example.appcinema.ui.screens.navigations.seriesScreenNavigation
@@ -19,7 +18,6 @@ import com.example.appcinema.ui.theme.APPCinemaTheme
 import detailsMovieScreenNavigation
 import detailsSeriesScreenNavigation
 import movieScreenNavigation
-import movieScreenRoute
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
