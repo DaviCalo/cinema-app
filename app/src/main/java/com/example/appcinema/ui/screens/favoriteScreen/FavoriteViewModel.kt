@@ -10,7 +10,6 @@ import com.example.appcinema.model.CardModel
 import com.example.appcinema.network.CinemaApi
 import kotlinx.coroutines.launch
 
-
 class FavoriteViewModel: ViewModel(){
     var listAllMovies by mutableStateOf<Array<CardModel>?>(null)
         private set
@@ -37,7 +36,6 @@ class FavoriteViewModel: ViewModel(){
                     tempMovies.add(listResult.results[i])
                 }
                 listAllMovies = tempMovies.toTypedArray()
-                println("vaiii")
             }catch (e: Exception){
                println(e.message)
             }

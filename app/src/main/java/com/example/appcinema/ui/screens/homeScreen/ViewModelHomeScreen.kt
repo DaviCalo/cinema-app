@@ -20,7 +20,7 @@ class HomeViewModel: ViewModel() {
     var listAllMoviesFavorite by mutableStateOf<Array<CardModel>?>(null)
         private set
 
-    var listAllSeriesFavorite  by mutableStateOf<Array<CardModel>?>(null)
+    var listAllSeriesFavorite by mutableStateOf<Array<CardModel>?>(null)
         private set
 
     private val tempMoviesFavorite = mutableListOf<CardModel>()

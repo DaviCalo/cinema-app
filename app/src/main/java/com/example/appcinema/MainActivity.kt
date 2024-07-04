@@ -37,7 +37,6 @@ class MainActivity : ComponentActivity() {
 fun App() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = homeScreenRoute) {
-
         seriesScreenNavigation(navController)
 
         homeScreenNavigation(navController)

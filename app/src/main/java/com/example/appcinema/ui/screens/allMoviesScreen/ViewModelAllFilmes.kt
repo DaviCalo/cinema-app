@@ -16,7 +16,7 @@ class MoviesViewModel: ViewModel() {
 
     private val tempMovies = mutableListOf<CardModel>()
 
-    var page: Int by mutableIntStateOf(1)
+    private var page: Int by mutableIntStateOf(1)
 
     init { getMoviesPopular(page) }
 
@@ -30,7 +30,7 @@ class MoviesViewModel: ViewModel() {
                 }
                 listAllMovies = tempMovies.toTypedArray()
             }catch (e: Exception){
-               testAllMovies = e.message.toString()
+               println(e.message)
             }
         }
     }
@@ -39,7 +39,4 @@ class MoviesViewModel: ViewModel() {
         page++
         getMoviesPopular(page)
     }
-
-
-    var testAllMovies: String by mutableStateOf("")
 }
